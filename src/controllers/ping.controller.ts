@@ -1,4 +1,5 @@
 import {inject} from '@loopback/core';
+import axios from 'axios';
 import {
   Request,
   RestBindings,
@@ -64,5 +65,15 @@ export class PingController {
     @inject('datasources.Keycloak') keycloak: Keycloak,
   ): Promise<object> {
     return keycloak.ping();
+  }
+
+  // Map to `GET /ping`
+  @get('/ping-get-axios')
+  @response(200, PING_RESPONSE)
+  async ping_get_axios(
+  ): Promise<object> {
+    const res = await axios.post('http://localhost:3000/ping');
+    console.log(res);
+    return res.data;
   }
 }

@@ -3,12 +3,16 @@ import * as Sentry from '@sentry/node';
 
 export * from './application';
 
-// Sentry.init({
-//   dsn: 'https://417860d1b52244a89fdd36a3b9462bb6@sentry.qeng.ir/11',
-//   tracesSampleRate: 1.0,
-// });
+function initSentry() {
+  Sentry.init({
+    dsn: 'https://417860d1b52244a89fdd36a3b9462bb6@sentry.ojvar.io/11',
+    tracesSampleRate: 1.0,
+  });
+}
 
 export async function main(options: ApplicationConfig = {}) {
+  initSentry();
+
   const app = new T1Application(options);
   await app.boot();
   await app.start();
